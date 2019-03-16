@@ -1,7 +1,5 @@
 package com.title.algorithm;
 
-import com.sun.org.apache.bcel.internal.generic.RET;
-import com.sun.org.apache.regexp.internal.RE;
 import java.util.HashMap;
 import java.util.Stack;
 
@@ -13,12 +11,10 @@ public class LinkListExams {
     private static class LinkedListNode<E> {
         E item;
         LinkedListNode<E> next;
-        LinkedListNode<E> prev;
 
-        LinkedListNode(LinkedListNode<E> prev, E element, LinkedListNode<E> next) {
+        LinkedListNode(E element, LinkedListNode<E> next) {
             this.item = element;
             this.next = next;
-            this.prev = prev;
         }
     }
 
@@ -80,12 +76,12 @@ public class LinkListExams {
         LinkedListNode slow = head;
 
         Stack<Integer> stack = new Stack<>();
-        while (fast!=null && slow!=null){
+        while (fast!=null && fast.next!=null){
             stack.push((int)slow.item);
             slow = slow.next;
             fast = fast.next.next;
         }
-        if(fast!=null){//奇数个节点时
+        if(fast!=null){//奇数个节点时  隐含 (fast!=null)&&(fast.next==null)
             slow=slow.next;
         }
         while (slow!=null){

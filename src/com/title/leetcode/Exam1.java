@@ -2,6 +2,7 @@ package com.title.leetcode;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 /**
  * Created by lichuang.lc on 2019/3/1.
@@ -43,8 +44,9 @@ public class Exam1 {
         while (x != 0) {
             int tail = x % 10;
             int newResult = result * 10 + tail;
-            if ((newResult - tail) / 10 != result)
-            { return 0; }
+            if ((newResult - tail) / 10 != result) {
+                return 0;
+            }
             result = newResult;
             x = x / 10;
         }
@@ -93,7 +95,23 @@ public class Exam1 {
     }
 
 
-    //
+    //https://leetcode.com/problems/trapping-rain-water/
+    //42 盛雨水问题 阶梯围成的横纵坐标能盛多少雨水
+    //单调栈解法
+    public int saveCountOfWater(int [] height){
+        Stack<Integer> s = new Stack<Integer>();
+        int i = 0, n = height.length, res = 0;
+        while (i < n) {
+            if (s.isEmpty() || height[i] <= height[s.peek()]) {
+                s.push(i++);
+            } else {
+                int t = s.pop();
+                if (s.isEmpty()) continue;
+                res += (Math.min(height[i], height[s.peek()]) - height[t]) * (i - s.peek() - 1);
+            }
+        }
+        return res;
+    }
 
 
 

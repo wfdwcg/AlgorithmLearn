@@ -2,6 +2,7 @@ package com.title.algorithm;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.BitSet;
 import java.util.Scanner;
 
 /**
@@ -29,6 +30,23 @@ public class StoreExams {
                 if((bitField[i] & (1<<j))==0){
                     return i*8 + j;
                 }
+            }
+        }
+        return -1;
+    }
+
+
+    //使用JDK的位域API
+    public int findOtherNumber2() throws FileNotFoundException{
+        BitSet bs = new BitSet(4*1000000000);
+        Scanner in = new Scanner(new FileReader("file.txt"));
+        while (in.hasNextInt()){
+            int n = in.nextInt();
+            bs.set(n);
+        }
+        for(int i=0;i<bs.size();i++){
+            if(!bs.get(i)){
+                return i;
             }
         }
         return -1;
